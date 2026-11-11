@@ -13,13 +13,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  
+  <!-- dotLottie Player for Background Animation -->
+  <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 <body class="body">
-  <!-- Background Video -->
-  <video class="background-video" autoplay loop muted playsinline poster="https://cdn.prod.website-files.com/624aab5f21e2909283a67638/680e920b74d687afe2968549_Portfolio%20Background-poster-00001.jpg">
-    <source src="https://cdn.prod.website-files.com/624aab5f21e2909283a67638/680e9107c5490e5100d1a080_Portfolio%20Background.webm" type="video/webm" />
-    <source src="https://cdn.prod.website-files.com/624aab5f21e2909283a67638/680e920b74d687afe2968549_Portfolio%20Background.mp4" type="video/mp4" />
-  </video>
+  <!-- Background Lottie Animation -->
+  <dotlottie-player 
+    src="https://lottie.host/135518b4-4e02-45b8-8cf5-17bc66a336df/gabBdWL1ZH.lottie" 
+    background="transparent" 
+    speed="1" 
+    class="background-video" 
+    direction="1" 
+    playMode="normal" 
+    loop 
+    autoplay>
+  </dotlottie-player>
 
   <main class="viewport">
     <div class="container-block">
