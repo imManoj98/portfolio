@@ -8,29 +8,66 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const backBtn = document.getElementById('back-btn');
   const navButtons = document.querySelectorAll('[data-target]');
+  const viewport = document.querySelector('.viewport');
+
+  // Flag to prevent double-firing during fast clicks
+  let isTransitioning = false;
 
   function showScreen(screenKey, updateHash = true) {
+    if (isTransitioning) return;
+    
     const validKey = screens[screenKey] ? screenKey : 'landing';
-
-    Object.keys(screens).forEach((key) => {
-      if (key === validKey) {
-        screens[key].classList.add('active');
-      } else {
-        screens[key].classList.remove('active');
-      }
-    });
-
-    if (validKey === 'landing') {
-      backBtn.classList.remove('visible');
-      if (updateHash && window.location.hash) {
-        history.pushState('', document.title, window.location.pathname + window.location.search);
-      }
-    } else {
-      backBtn.classList.add('visible');
-      if (updateHash && window.location.hash !== `#${validKey}`) {
-        history.pushState(null, '', `#${validKey}`);
-      }
+    
+    // Check if the requested screen is already active
+    if (screens[validKey].classList.contains('active')) {
+        // Just update hash if needed and return
+        if (validKey === 'landing') {
+            if (updateHash && window.location.hash) {
+                history.pushState('', document.title, window.location.pathname + window.location.search);
+            }
+        } else {
+            if (updateHash && window.location.hash !== `#${validKey}`) {
+                history.pushState(null, '', `#${validKey}`);
+            }
+        }
+        return;
     }
+
+    isTransitioning = true;
+    
+    // Smooth scroll back to top before swapping screens
+    if (viewport.scrollTop > 0) {
+      viewport.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // A small timeout allows the scroll-to-top to begin before the DOM swap
+    setTimeout(() => {
+        Object.keys(screens).forEach((key) => {
+          if (key === validKey) {
+            screens[key].classList.add('active');
+          } else {
+            screens[key].classList.remove('active');
+          }
+        });
+
+        if (validKey === 'landing') {
+          backBtn.classList.remove('visible');
+          if (updateHash && window.location.hash) {
+            history.pushState('', document.title, window.location.pathname + window.location.search);
+          }
+        } else {
+          backBtn.classList.add('visible');
+          if (updateHash && window.location.hash !== `#${validKey}`) {
+            history.pushState(null, '', `#${validKey}`);
+          }
+        }
+        
+        // Release the transition lock after animations finish (matches CSS duration of 600ms)
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 600);
+        
+    }, 100);
   }
 
   // Handle navigation button clicks
