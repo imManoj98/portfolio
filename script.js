@@ -60,23 +60,51 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('popstate', handleHashChange);
   handleHashChange();
 
-  // Handle contact form submission via mailto fallback (or Formspree if configured)
+  // Handle contact form submission via Formspree
   const emailForm = document.getElementById('email-form');
   const formSuccess = document.getElementById('form-success');
+  const formError = document.getElementById('form-error');
 
   if (emailForm) {
-    emailForm.addEventListener('submit', (e) => {
+    const submitBtn = emailForm.querySelector('button[type="submit"]');
+    
+    emailForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = document.getElementById('name-2').value.trim();
-      const email = document.getElementById('email-2').value.trim();
-      const message = document.getElementById('Message-2').value.trim();
+      
+      // Prevent multiple clicks and show a loading state
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+      if (formError) formError.hidden = true;
 
-      const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
-      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-      window.location.href = `mailto:manojsalunke98@gmail.com?subject=${subject}&body=${body}`;
+      const formData = new FormData(emailForm);
 
-      emailForm.hidden = true;
-      formSuccess.hidden = false;
+      try {
+        const response = await fetch('https://formspree.io/f/mjywbojz', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          // Hide form and show success message
+          emailForm.hidden = true;
+          if (formSuccess) formSuccess.hidden = false;
+          emailForm.reset();
+        } else {
+          // Show error message if the service rejects it
+          if (formError) formError.hidden = false;
+        }
+      } catch (error) {
+        // Show error message if the network fails
+        if (formError) formError.hidden = false;
+      } finally {
+        // Restore button state
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+      }
     });
   }
 });
