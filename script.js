@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showScreen('landing', true);
   });
 
-  // Support browser back/forward and direct hash links (#works, #about, #contact)
+  // Support browser back/forward and direct hash links
   function handleHashChange() {
     const hash = window.location.hash.replace('#', '').toLowerCase();
     if (hash && screens[hash]) {
@@ -71,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     emailForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      // Prevent multiple clicks and show a loading state
       const originalBtnText = submitBtn.textContent;
       submitBtn.textContent = 'Sending...';
       submitBtn.disabled = true;
@@ -89,19 +88,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (response.ok) {
-          // Hide form and show success message
           emailForm.hidden = true;
           if (formSuccess) formSuccess.hidden = false;
           emailForm.reset();
         } else {
-          // Show error message if the service rejects it
           if (formError) formError.hidden = false;
         }
       } catch (error) {
-        // Show error message if the network fails
         if (formError) formError.hidden = false;
       } finally {
-        // Restore button state
         submitBtn.textContent = originalBtnText;
         submitBtn.disabled = false;
       }
