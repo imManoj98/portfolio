@@ -164,12 +164,11 @@ html, body {
   color: var(--dim-grey);
 }
 
-/* FIX 1: About Space Issue */
 .screen.about-block {
   display: flex;
-  justify-content: space-around; /* Was space-between */
+  justify-content: space-around;
   align-items: center;
-  gap: 20px; /* Reduced from 40px */
+  gap: 20px;
   color: var(--dim-grey);
 }
 
@@ -209,9 +208,8 @@ html, body {
   line-height: 1.5rem;
 }
 
-/* FIX 3: Textbox Width Issue */
 .text.textbox {
-  max-width: 40vw; /* Reverted to Webflow's original 40vw (was 450px) */
+  max-width: 40vw; /* Restored to Webflow's original 40vw */
   font-family: 'Comfortaa', sans-serif;
   font-size: 1.2rem;
   line-height: 1.55rem;
@@ -237,12 +235,12 @@ html, body {
   margin-bottom: 10px;
 }
 
-/* FIX 5: Button Height Consistency */
+/* Fix: Consistent Button Heights */
 .button {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  height: 38px; /* Hardcoded to perfectly match social button */
+  height: 38px; /* Hardcoded to perfectly match social button height */
   min-width: 120px;
   margin-right: 5px;
   padding: 0 18px; /* Removed top/bottom padding to respect fixed height */
@@ -286,7 +284,7 @@ html, body {
 /* Social Buttons */
 .div-block-5 {
   display: flex;
-  width: 125px; /* Slight bump for wider buttons */
+  width: 125px; /* Slight bump for wider 38px buttons */
   margin-right: 20px;
   justify-content: space-between;
 }
@@ -364,14 +362,15 @@ html, body {
   display: flex;
   width: 100%;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center; /* Center aligns the grid if cards don't fill a row */
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 16px; /* Replacing margins with grid gap for stability */
+  gap: 32px; /* Increased from 16px to match original 15px+15px margin layout */
 }
 
 .work-card {
-  max-width: 28%;
+  width: 28%;
+  min-width: 260px;
   flex: 0 1 auto;
   transition: transform 400ms ease, box-shadow 400ms ease;
   border-radius: 10px;
@@ -395,7 +394,7 @@ html, body {
   border-radius: 10px;
 }
 
-/* FIX 2: About Portrait Scale */
+/* About Portrait */
 .div-block-6 {
   width: 35%; /* Restores responsive scaling rather than hardcoded 320px */
   max-width: 400px;
@@ -436,9 +435,9 @@ html, body {
   font-size: 1rem;
 }
 
-/* FIX 4: Contact Form Width Constrained */
+/* Contact Form Width Constrained */
 .form-block {
-  display: block; /* Removed inline-block */
+  display: block;
   width: 100%;
   max-width: 450px; /* Constrains it from stretching full width */
   min-width: 30vw;
@@ -545,7 +544,7 @@ html, body {
   }
 
   .work-card {
-    max-width: 45%;
+    width: 45%;
   }
 
   .screen.about-block {
@@ -590,7 +589,7 @@ html, body {
   }
 
   .work-card {
-    max-width: 43%;
+    width: 45%;
   }
 
   .screen.contact-block {
@@ -666,9 +665,11 @@ html, body {
 
   .div-block-2 {
     justify-content: center;
+    gap: 24px; /* Slightly tighter gap on mobile portrait */
   }
 
   .work-card {
+    width: 100%;
     max-width: 93%;
   }
 
