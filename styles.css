@@ -166,9 +166,9 @@ html, body {
 
 .screen.about-block {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
   color: var(--dim-grey);
 }
 
@@ -209,7 +209,7 @@ html, body {
 }
 
 .text.textbox {
-  max-width: 450px; /* Precise max-width */
+  max-width: 40vw; /* Restored to Webflow's original 40vw */
   font-family: 'Comfortaa', sans-serif;
   font-size: 1.2rem;
   line-height: 1.55rem;
@@ -235,19 +235,20 @@ html, body {
   margin-bottom: 10px;
 }
 
+/* Fix: Consistent Button Heights */
 .button {
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  height: 38px; /* Hardcoded to perfectly match social button height */
   min-width: 120px;
   margin-right: 5px;
-  padding: 8px 18px;
+  padding: 0 18px; /* Removed top/bottom padding to respect fixed height */
   border: 3px solid var(--light-red);
   background-color: transparent;
   font-family: 'Luxia display', serif;
   color: var(--dim-grey);
   font-size: 0.95rem;
-  line-height: 1.1rem;
   font-weight: 400;
   text-align: center;
   text-decoration: none;
@@ -283,7 +284,7 @@ html, body {
 /* Social Buttons */
 .div-block-5 {
   display: flex;
-  width: 120px;
+  width: 125px; /* Slight bump for wider 38px buttons */
   margin-right: 20px;
   justify-content: space-between;
 }
@@ -291,8 +292,8 @@ html, body {
 .button.social-button {
   position: relative;
   display: flex;
-  width: 34px;
-  height: 34px;
+  width: 38px; /* Matched exactly to text button height */
+  height: 38px; 
   min-width: 0px;
   margin-right: 0px;
   padding: 0px;
@@ -361,14 +362,15 @@ html, body {
   display: flex;
   width: 100%;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center; /* Center aligns the grid if cards don't fill a row */
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 16px; /* Replacing margins with grid gap for stability */
+  gap: 32px; /* Increased from 16px to match original 15px+15px margin layout */
 }
 
 .work-card {
-  max-width: 28%;
+  width: 28%;
+  min-width: 260px;
   flex: 0 1 auto;
   transition: transform 400ms ease, box-shadow 400ms ease;
   border-radius: 10px;
@@ -394,7 +396,8 @@ html, body {
 
 /* About Portrait */
 .div-block-6 {
-  width: 320px;
+  width: 35%; /* Restores responsive scaling rather than hardcoded 320px */
+  max-width: 400px;
   flex-shrink: 0;
 }
 
@@ -432,8 +435,11 @@ html, body {
   font-size: 1rem;
 }
 
+/* Contact Form Width Constrained */
 .form-block {
-  display: inline-block;
+  display: block;
+  width: 100%;
+  max-width: 450px; /* Constrains it from stretching full width */
   min-width: 30vw;
   margin-top: 15px;
 }
@@ -522,7 +528,7 @@ html, body {
   }
 
   .text.textbox {
-    max-width: 75vw;
+    max-width: 75vw; /* Overrides the 40vw for tablets */
     font-size: 1rem;
     line-height: 1.4rem;
     text-align: center;
@@ -538,7 +544,7 @@ html, body {
   }
 
   .work-card {
-    max-width: 45%;
+    width: 45%;
   }
 
   .screen.about-block {
@@ -547,7 +553,7 @@ html, body {
   }
 
   .div-block-6 {
-    width: 240px;
+    width: 320px; /* Constrain on tablet stack */
   }
 
   .div-block-8 {
@@ -583,7 +589,7 @@ html, body {
   }
 
   .work-card {
-    max-width: 43%;
+    width: 45%;
   }
 
   .screen.contact-block {
@@ -659,9 +665,11 @@ html, body {
 
   .div-block-2 {
     justify-content: center;
+    gap: 24px; /* Slightly tighter gap on mobile portrait */
   }
 
   .work-card {
+    width: 100%;
     max-width: 93%;
   }
 
@@ -672,7 +680,7 @@ html, body {
   }
 
   .div-block-6 {
-    width: 180px;
+    width: 220px; /* Smaller portrait on phones */
   }
 
   .form-block {
